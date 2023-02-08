@@ -35,9 +35,11 @@ def disconnect_db(cursor):
 def execute_statement(cursor,statement,args={}):
     try:
         cursor.excute(statement, args)
-        results = cursor.fetchall()
-        return results
+        result = cursor.fetchall()
+        return result
     except mariadb.ProgrammingError as e:
+        if "Doesn't have a result set" in e.msg:
+            return result
         print("Syntax error in your SQL statement:", e)
         return str(e)
     except mariadb.IntegrityError as e:
