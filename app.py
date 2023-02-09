@@ -12,24 +12,26 @@ def itemlist():
     else:
         return "There was an error"
 
+# This post works as it added item to DB but return message does not.  I still get error msg.
 @app.post('/api/items')
 def newItem():
     name = request.json.get('name')
     description = request.json.get('description')
     quantity = request.json.get('quantity')
     result = run_statement('CALL newItem (?,?,?)',[name, description, quantity])
-    if (type(result)  == list):
-        return json.dumps(result, default=str)
+    if result == None:
+        return "Success"
     else:
         return "There was an error"
 
+# This patch works as it updated the quantity in the DB but return message does not.  I still get error msg.
 @app.patch('/api/items')
 def updateItem():
     id = request.json.get('id')
     quantity = request.json.get('quantity')
-    result = run_statement('CALL updateItem (?)',[quantity])
-    if (type(result) == list):
-        return json.dumps(result, default=str)
+    result = run_statement('CALL updateItem (?,?)',[id,quantity])
+    if result == None:
+        return "Quantity updated"
     else:
         return "There was an error"
 

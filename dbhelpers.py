@@ -34,7 +34,7 @@ def disconnect_db(cursor):
 
 def execute_statement(cursor,statement,args={}):
     try:
-        cursor.excute(statement, args)
+        cursor.execute(statement, args)
         result = cursor.fetchall()
         return result
     except mariadb.ProgrammingError as e:
