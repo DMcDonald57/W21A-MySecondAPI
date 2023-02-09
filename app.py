@@ -30,10 +30,12 @@ def updateItem():
     id = request.json.get('id')
     quantity = request.json.get('quantity')
     result = run_statement('CALL updateItem (?,?)',[id,quantity])
-    if result == None:
-        return "Quantity updated"
+    for quantity in result:
+        return "New quantity: {}".format(quantity)
     else:
         return "There was an error"
+
+# This delete works as it deleted the item in the DB but return message does not.  I still get error msg.
 
 @app.delete('/api/items')
 def deleteItem():
