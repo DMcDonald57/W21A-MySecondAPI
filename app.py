@@ -57,7 +57,7 @@ def employeeinfo():
     else:
         return "There was an error"
 
-# # This post works as it added employee to DB but return message does not.  I still get error msg.
+# # This post works as it added employee to DB but return message does not.
 
 @app.post('/api/employees')
 def newEmployee():
@@ -65,11 +65,11 @@ def newEmployee():
     hourly_wage = request.json.get('hourly_wage')
     result = run_statement('CALL newEmployee (?,?)',[name, hourly_wage])
     for name in result:
-        return "Welcome {}.".format(name[0])
+        return "Welcome {}.".format(name)
     else:
         return "There was an error"
 
-# # This patch works as it updated the quantity in the DB but return message does not.  I still get error msg.
+# # This patch works as it updated the hourly wage in the DB but return message does not.
 @app.patch('/api/employees')
 def updateEmployee():
     id = request.json.get('id')
@@ -80,7 +80,7 @@ def updateEmployee():
     else:
         return "There was an error"
 
-# # This delete works as it deleted the item in the DB but return message does not.  I still get error msg.
+# # This delete works as it deleted the employee in the DB but return message does not.  I still get error msg.
 
 @app.delete('/api/employees')
 def deleteEmployee():
